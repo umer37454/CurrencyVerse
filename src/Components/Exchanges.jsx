@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { server } from '../main'
-import { Container, Image, Text, Heading, VStack, HStack } from '@chakra-ui/react'
+import { Container, Image, Text, Heading, VStack, HStack, Button } from '@chakra-ui/react'
 import Loader from './Loader'
-import Error from './Error'
-import './exchanges.css'
+import ErrorComponent from './ErrorComponent'
+import './style.css'
 
 const Exchanges = () => {
   const [exchanges, setExchanges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const changePage = (page) => {
+    setPage(page);
+    //setLoading(true);
+  }
 
   useEffect(() => {
     const fetchExchanges = async () => {
       try {
-        const { data } = await axios.get(`${server}/exchanges`);
+        const { data } = await axios.get(`${server}/exchanges?page=${page}`);
         setExchanges(data);
         setLoading(false);
       } catch (error) {
@@ -24,35 +30,22 @@ const Exchanges = () => {
     };
 
     fetchExchanges();
-  }, [])
+  }, [page])
 
-  if (error) return <Error />
+  if (error) return <ErrorComponent />
 
   return (
     <>
       <Container maxW={"container.xl"}>
         {loading ? (<Loader />) : (
-          <>
-            <SearchBar exchanges={exchanges} />
-            {/* <HStack wrap={"wrap"}>
-              {exchanges.map((i) => {
-                return (
-                  <ExchangeCard
-                    key={i.id}
-                    name={i.name}
-                    img={i.image}
-                    rank={i.trust_score_rank}
-                    url={i.url} />
-                );
-              })}
-            </HStack> */}
-          </>)}
+          <SearchBar exchanges={exchanges} changePage={changePage} />
+        )}
       </Container>
     </>
   );
 }
 
-const SearchBar = ({ exchanges }) => {
+const SearchBar = ({ exchanges, changePage }) => {
   const [searchValue, setSearchValue] = useState("");
 
   const handleInput = (e) => {
@@ -78,26 +71,43 @@ const SearchBar = ({ exchanges }) => {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchValue}
-        onChange={handleInput}
-        className="search-container" />
-      {shouldDisplay && <button className="clear" onClick={handleClear}>Clear</button>}
+      <Text
+        fontWeight={"bold"}
+        fontSize={"2xl"}
+        m={"4"}>
+        Click on any exchange card to get to its home
+      </Text>
+      <div style={{ position: "sticky", top: "20px", width: "100%" }}>
+        <input
+          type="text"
+          placeholder="Search... on this page"
+          value={searchValue}
+          onChange={handleInput}
+          className="search-container" />
+        {shouldDisplay && <button className="clear" onClick={handleClear}>Clear</button>}
+      </div>
 
-      {displayExchange ? (<HStack wrap={"wrap"}>
-        {filteredExchange.map((i) => {
-          return (
-            <ExchangeCard
-              key={i.id}
-              name={i.name}
-              img={i.image}
-              rank={i.trust_score_rank}
-              url={i.url} />
-          );
-        })}
-      </HStack>) :
+      {displayExchange ? (
+        <>
+          <HStack wrap={"wrap"} justifyContent={"space-evenly"} mb={"15px"} mt={"20px"}>
+            {filteredExchange.map((i) => {
+              return (
+                <ExchangeCard
+                  key={i.id}
+                  name={i.name}
+                  img={i.image}
+                  rank={i.trust_score_rank}
+                  url={i.url} />
+              );
+            })}
+          </HStack>
+
+          <HStack mb={"20px"} mt={"10px"} justifyContent={"space-evenly"}>
+            <Button bgColor={"white"} color={"blackAlpha.900"} border="1px solid" borderColor="gray.500" onClick={() => changePage(1)}>1st page</Button>
+            <Button bgColor={"white"} color={"blackAlpha.900"} border="1px solid" borderColor="gray.500" onClick={() => changePage(2)}>2nd page</Button>
+          </HStack>
+        </>
+      ) :
         (<NotAvailable />)
       }
     </>

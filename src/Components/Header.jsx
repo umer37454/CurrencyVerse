@@ -6,13 +6,13 @@ const Header = () => {
   return (
     <>
       <HStack bg="gray.800" p={"4"} shadow={"base"} spacing={"5"}>
-        <Button variant={"unstyled"} color={"white"}>
+        <Button variant={"unstyled"} color={"white"} fontSize={"1.3rem"}>
           <Link to='/'> Home</Link>
         </Button>
-        <Button variant={"unstyled"} color={"white"}>
+        <Button variant={"unstyled"} color={"white"} fontSize={"1.3rem"}>
           <Link to='/coins'> Coins</Link>
         </Button>
-        <Button variant={"unstyled"} color={"white"}>
+        <Button variant={"unstyled"} color={"white"} fontSize={"1.3rem"}>
           <Link to='/exchanges'> Exchanges</Link>
         </Button>
       </HStack>
