@@ -22,6 +22,6 @@ As part of the development process, I ensured that the application could handle 
 
 ## Knowledge gained
 
-During the development process, I utilized various React hooks, including useState and useEffect, to implement dynamic functionality on the frontend. Additionally, I incorporated Axios to fetch data from the backend and ensure seamless integration between the frontend and backend systems.
+During the development process, I utilized various React hooks, including useState and useEffect, to implement dynamic functionality on the frontend. Additionally, I incorporated Axios to fetch data from the backend and ensure seamless integration between the frontend and backend systems. React Routers and useNavigate hooks were also used to build different routings.
 
 As part of the development process, I ensured that the application could handle errors in the backend effectively. Overall, this project showcases my skills in full-stack web development, including designing responsive user interfaces and utilizing various React hooks and libraries to create dynamic and functional web applications.
