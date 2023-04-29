@@ -6,7 +6,7 @@ Here a deployed project Link - https://currency-verse-umer-project.netlify.app/
 
 ## Tools used while making this project
 
-This project was made using HTML, CSS, JavaScript/React and a CoinGecko API. React is a front end framework of JavaScript that helps in building components of UI. CoinGecko API boast of thousands of data that can be used for your personal projects.
+This project was made using HTML, CSS, JavaScript/React, Axios and a CoinGecko API. React is a front end framework of JavaScript that helps in building components of UI. CoinGecko API boast of thousands of data that can be used for your personal projects. Axios is used to fetch the data from backend.
 
 <br>
 
